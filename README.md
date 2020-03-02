@@ -4,3 +4,7 @@ This is a funky app that sends cheerful text messages! It leverages the Twilio a
 up your day.
 
 ## Tools and Technologies Used
+- Node.js
+- Express
+- Twilio Programmable SMS
+- Inspirational Quotes
