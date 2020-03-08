@@ -1,27 +1,26 @@
 require('dotenv').config();
-const accountSid = process.env.TWILIO_SID;
-const authToken = process.env.TWILIO_AUTH_TOKEN;
-
-const twilio = require('twilio');
-let twilioClient = new twilio(accountSid, authToken);
-let recipient = process.env.RECIPIENT;
-let sender = process.env.SENDER;
-
+const MessagingResponse = require('twilio').twiml.MessagingResponse;
+const express = require('express');
+const app = express();
 const quoteLibrary = require('inspirational-quotes');
 
-twilioClient.messages.create({
-    body: 'Coucou',
-    to: recipient,
-    from: sender,
-})
-.then((message) => console.log(message.sid));
+app.post('/sms', (req, res) => {
+    let twimlResponse = new MessagingResponse();
+    let quote = quoteLibrary.getQuote();
+    console.log(`Today's quote is from the great ${quote.author}: "${quote.text}"`);
+
+    twimlResponse.message(`Today's quote is from the great ${quote.author}: ${quote.text}`);
+    
+    res.writeHead(200, {'Content-Type': 'text/xml'});
+    res.end(twimlResponse.toString());
+});
 
 
 
 
 
-//start the node server
-const port = process.env.PORT || 3000;
+// start the node server
+const port = process.env.PORT || 1337;
 app.listen(port, function () {
   console.log('Super Texter has started!');
 });
