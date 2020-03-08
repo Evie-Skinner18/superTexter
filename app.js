@@ -13,7 +13,7 @@ const app = express();
 
 const quoteLibrary = require('inspirational-quotes');
 let quote = quoteLibrary.getQuote();
-console.log(`Today's quote is from the great ${quote.author}: ${quote.text}`);
+console.log(`Today's quote is from the great ${quote.author}: "${quote.text}"`);
 
 app.post('/sms', (req, res) => {
     let twimlResponse = new MessagingResponse();
@@ -34,8 +34,8 @@ app.post('/sms', (req, res) => {
 
 
 
-start the node server
-const port = process.env.PORT || 3000;
+// start the node server
+const port = process.env.PORT || 1337;
 app.listen(port, function () {
   console.log('Super Texter has started!');
 });
